@@ -6,11 +6,9 @@ It is designed to test an OpenConfig → Telegraf → OTEL → Prometheus → Gr
 
 Requirements
 
-Docker
-
-Docker Compose
-
-(Optional) Python 3 if running fake_fan.py locally for testing
+- Docker
+- Docker Compose
+- (Optional) Python 3 if running fake_fan.py locally for testing
 
 Getting Started
 1. Clone the repo
