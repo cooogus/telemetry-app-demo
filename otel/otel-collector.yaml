@@ -1,0 +1,35 @@
+receivers:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: telegraf-gnmi
+          scrape_interval: 10s
+          static_configs:
+            - targets: ["telegraf:9273"]
+
+processors:
+  batch: {}
+  metricstransform:
+    transforms:
+      - include: fan_speed_rpm
+        match_type: strict
+        action: update
+        operations:
+          - action: update_label
+            label: host
+            new_label: telegraf_host
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+    resource_to_telemetry_conversion:
+      enabled: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [prometheus]
+      processors: [batch, metricstransform]
+      exporters: [prometheus]
+
+
