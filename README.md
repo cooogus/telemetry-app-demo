@@ -13,7 +13,6 @@ Requirements
 Getting Started
 1. Clone the repo
 git clone git@github.com:cooogus/telemetry-app-demo.git
-cd telemetry-app-demo
 
 2. Build and start services
 docker compose up -d --build 
