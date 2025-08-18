@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import random, time
 
+# defining the device and values attached to that device 
 device = "junos-1"
 fans = ["FAN1", "FAN2", "FAN3"]
 

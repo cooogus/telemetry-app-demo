@@ -8,6 +8,14 @@ services:
     networks: [ poc ]
     restart: unless-stopped
 
+  app-sim:
+    build:
+      context: ./app-sim
+      dockerfile: Dockerfile
+    networks: [ poc ]
+    depends_on: [ otel-collector ]
+    restart: unless-stopped
+
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
     command: [ "--config=/etc/otelcol/otel-collector.yaml" ]
@@ -15,6 +23,7 @@ services:
       - ./otel/otel-collector.yaml:/etc/otelcol/otel-collector.yaml:ro
     ports:
       - "9464:9464"
+      - "4317:4317"
     depends_on: [ telegraf ]
     networks: [ poc ]
     restart: unless-stopped
