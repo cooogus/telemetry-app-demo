@@ -24,7 +24,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
             KeyValue::new("region", "us-west"),
             KeyValue::new("site", "sjc1"),
             KeyValue::new("cluster", "cluster-0"),
-            KeyValue::new("node", "node-0"),
             KeyValue::new("chip", "chip-0"),
         ])
         .build();
@@ -59,8 +58,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
 
     // synchronous instruments -> call record() in every observation
     let latency = meter
-        .f64_histogram("recogni.inference.latency_ms")
-        .with_unit("ms")
+        .f64_histogram("recogni.inference.latency")
         .with_description("E2E inference latency")
         .build();
 
@@ -75,8 +73,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
     // asynchronous instrument -> dont push values directly
     // have to register a callback and sdk invokes it on every collection (every 5s)
     let _temp_gauge = meter
-        .f64_observable_gauge("recogni.chip.temperature_c")
-        .with_unit("C")
+        .f64_observable_gauge("recogni.chip.temperature")
         .with_description("Chip temperature")
         .with_callback(move |observer| {
             if let Ok(t) = temp_state_cb.lock() {
