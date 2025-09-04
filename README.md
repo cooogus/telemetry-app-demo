@@ -1,8 +1,18 @@
-Telemetry App Demo – OpenConfig (Telegraf) + OpenTelemetry Pipeline
+# Telemetry App Demo – Recogni App-Sim + OpenConfig (Telegraf) → OpenTelemetry Pipeline
 
-This project is a proof-of-concept telemetry pipeline demonstrating how to collect fake hardware metrics (e.g., fan speeds from a simulated Junos/OpenConfig device) using Telegraf, route them through the OpenTelemetry Collector, store/query them in Prometheus, and visualize them in Grafana.
+This project is a proof-of-concept telemetry pipeline demonstrating how to collect fake hardware and application metrics and observe them end-to-end:
 
-It is designed to test an OpenConfig → Telegraf → OTEL → Prometheus → Grafana workflow with easily swappable fake or real data sources.
+**app-sim**: a Rust service simulating Recogni app metrics (chip temperature, inference latency).
+
+**telegraf**: scrapes simulated OpenConfig/Junos metrics (e.g., fan speed) via gNMI.
+
+**otel-collector**: receives both OTLP metrics (from app-sim) and scraped metrics (from Telegraf), processes them, and exports to Prometheus.
+
+**prometheus**: stores time series.
+
+**grafana**: visualizes dashboards showing how chip temperature, fan speed, and latency relate.
+
+The design makes it easy to swap fake sources (random jitter) with real telemetry when available.
 
 Requirements
 
