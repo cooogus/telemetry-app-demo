@@ -25,6 +25,7 @@ Getting Started
 git clone git@github.com:cooogus/telemetry-app-demo.git
 
 2. Build and start services
+```
 docker compose up -d --build
-
-3. Look at grafana dashes and prometheus stats through localhost ports 3000 and 9090 
+```
+3. Look at Grafana dashes and Prometheus stats through localhost ports 3000 and 9090 
